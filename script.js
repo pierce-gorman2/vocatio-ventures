@@ -1,5 +1,5 @@
 /* ============================================================
-   VOCATIO VENTURES — SHARED JAVASCRIPT
+   VOCATIO VENTURES - SHARED JAVASCRIPT
    ============================================================ */
 
 (function () {
@@ -9,7 +9,7 @@
      MOBILE NAV TOGGLE
   ---------------------------------------------------------- */
   const toggle = document.querySelector('.nav-toggle');
-  const nav    = document.querySelector('.site-nav');
+  const nav = document.querySelector('.site-nav');
 
   if (toggle && nav) {
     toggle.addEventListener('click', function () {
@@ -17,7 +17,6 @@
       toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // Close nav when a link is clicked (mobile)
     nav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
         nav.classList.remove('open');
@@ -25,7 +24,6 @@
       });
     });
 
-    // Close nav on outside click
     document.addEventListener('click', function (e) {
       if (!toggle.contains(e.target) && !nav.contains(e.target)) {
         nav.classList.remove('open');
@@ -40,7 +38,8 @@
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.site-nav a').forEach(function (link) {
     const href = link.getAttribute('href');
-    if (!href) return;
+    if (!href || link.classList.contains('nav-apply')) return;
+
     const linkPage = href.split('/').pop();
     if (
       linkPage === currentPage ||
@@ -89,11 +88,10 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const btn      = form.querySelector('.form-submit');
-      const success  = document.getElementById('form-success');
+      const btn = form.querySelector('.form-submit');
+      const success = document.getElementById('form-success');
       const original = btn.textContent;
 
-      // Simple validation
       const required = form.querySelectorAll('[required]');
       let valid = true;
       required.forEach(function (field) {
@@ -110,12 +108,11 @@
         return;
       }
 
-      // Simulate send
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending...';
       btn.disabled = true;
 
       setTimeout(function () {
-        form.style.display   = 'none';
+        form.style.display = 'none';
         if (success) {
           success.classList.add('show');
         }
